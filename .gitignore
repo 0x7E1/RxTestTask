@@ -1,0 +1,12 @@
+# Ignored files
+
+# Maven
+target
+
+# IDE files
+*.iml
+.idea/
+.gradle/
+out/
+build/
+log/
