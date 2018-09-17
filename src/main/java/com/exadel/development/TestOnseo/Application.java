@@ -15,7 +15,7 @@ public class Application {
         DataLoader loader = new DataLoaderImpl();
 
         Post post = loader.loadPost();
-        Comment comment = loader.loadComment();
+        Comment comment = loader.loadComment(post.getId());
         Album album = loader.loadAlbum();
         ToDo toDo = loader.loadToDo();
         Photo photo = loader.loadPhoto();

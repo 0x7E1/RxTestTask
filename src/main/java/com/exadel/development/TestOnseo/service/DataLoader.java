@@ -5,7 +5,7 @@ import com.exadel.development.TestOnseo.domain.dto.*;
 public interface DataLoader {
     Post loadPost();
 
-    Comment loadComment();
+    Comment loadComment(Long postId);
 
     Album loadAlbum();
 

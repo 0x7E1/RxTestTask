@@ -34,9 +34,10 @@ public class DataLoaderImpl implements DataLoader {
     }
 
     @Override
-    public Comment loadComment() {
+    public Comment loadComment(Long postId) {
         try {
-            String resultJson = httpService.doGet(COMMENTS_URL);
+            String url = COMMENTS_URL + "?postId=" + postId;
+            String resultJson = httpService.doGet(url);
             return mapper.readValue(resultJson, Comment[].class)[0];
         } catch (IOException e) {
             return null;
