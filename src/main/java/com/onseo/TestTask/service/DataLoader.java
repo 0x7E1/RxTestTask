@@ -1,6 +1,7 @@
-package com.exadel.development.TestOnseo.service;
+package com.onseo.TestTask.service;
 
-import com.exadel.development.TestOnseo.domain.dto.*;
+import com.onseo.TestTask.domain.dto.*;
+
 import java.util.concurrent.CompletableFuture;
 
 public class DataLoader {

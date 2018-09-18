@@ -1,6 +1,6 @@
-package com.exadel.development.TestOnseo.service;
+package com.onseo.TestTask.service;
 
-import com.exadel.development.TestOnseo.service.exceptions.DataMappingException;
+import com.onseo.TestTask.service.exceptions.DataMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 

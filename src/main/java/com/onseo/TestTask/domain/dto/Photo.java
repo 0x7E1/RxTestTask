@@ -1,4 +1,4 @@
-package com.exadel.development.TestOnseo.domain.dto;
+package com.onseo.TestTask.domain.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,9 +7,10 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Post {
-    private Long userId;
+public class Photo {
+    private Long albumId;
     private Long id;
     private String title;
-    private String body;
+    private String url;
+    private String thumbnailUrl;
 }

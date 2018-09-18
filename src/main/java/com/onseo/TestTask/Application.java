@@ -1,7 +1,7 @@
-package com.exadel.development.TestOnseo;
+package com.onseo.TestTask;
 
-import com.exadel.development.TestOnseo.domain.dto.ResultObject;
-import com.exadel.development.TestOnseo.facade.ApplicationRunnerFacade;
+import com.onseo.TestTask.domain.dto.ResultObject;
+import com.onseo.TestTask.facade.ApplicationRunnerFacade;
 import com.google.common.base.Stopwatch;
 
 import java.util.concurrent.TimeUnit;

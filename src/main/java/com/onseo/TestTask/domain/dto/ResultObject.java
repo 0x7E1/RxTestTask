@@ -1,4 +1,4 @@
-package com.exadel.development.TestOnseo.domain.dto;
+package com.onseo.TestTask.domain.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

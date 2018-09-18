@@ -1,7 +1,8 @@
-package com.exadel.development.TestOnseo.facade;
+package com.onseo.TestTask.facade;
 
 import com.exadel.development.TestOnseo.domain.dto.*;
-import com.exadel.development.TestOnseo.service.DataLoader;
+import com.onseo.TestTask.service.DataLoader;
+import com.onseo.TestTask.domain.dto.*;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.CompletableFuture;
