@@ -1,9 +1,8 @@
 package com.exadel.development.TestOnseo.service;
 
 import com.exadel.development.TestOnseo.domain.dto.*;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.io.IOException;
+import java.util.concurrent.CompletableFuture;
 
 public class DataLoader {
     private static final String POSTS_URL = "https://jsonplaceholder.typicode.com/posts";
@@ -13,57 +12,46 @@ public class DataLoader {
     private static final String PHOTO_URL = "https://jsonplaceholder.typicode.com/photos";
 
     private HttpService httpService;
-
-    private ObjectMapper mapper;
+    private DataMapper mapper;
 
     public DataLoader() {
         this.httpService = new HttpService();
-        this.mapper = new ObjectMapper();
+        this.mapper = new DataMapper();
     }
 
-    public Post loadPost() {
-        try {
+    public CompletableFuture<Post> loadPost() {
+        return CompletableFuture.supplyAsync(() -> {
             String resultJson = httpService.doGet(POSTS_URL);
-            return mapper.readValue(resultJson, Post[].class)[0];
-        } catch (IOException e) {
-            return null;
-        }
+            return mapper.mapToObject(resultJson, Post[].class);
+        });
     }
 
-    public Comment loadComment(Long postId) {
-        try {
-            String url = COMMENTS_URL + "?postId=" + postId;
-            String resultJson = httpService.doGet(url);
-            return mapper.readValue(resultJson, Comment[].class)[0];
-        } catch (IOException e) {
-            return null;
-        }
+    public CompletableFuture<Comment> loadComment() {
+        return CompletableFuture.supplyAsync(() -> {
+//            String url = COMMENTS_URL + "?postId=" + postId;
+            String resultJson = httpService.doGet(COMMENTS_URL);
+            return mapper.mapToObject(resultJson, Comment[].class);
+        });
     }
 
-    public Album loadAlbum() {
-        try {
+    public CompletableFuture<Album> loadAlbum() {
+        return CompletableFuture.supplyAsync(() -> {
             String resultJson = httpService.doGet(ALBUM_URL);
-            return mapper.readValue(resultJson, Album[].class)[0];
-        } catch (IOException e) {
-            return null;
-        }
+            return mapper.mapToObject(resultJson, Album[].class);
+        });
     }
 
-    public ToDo loadToDo() {
-        try {
+    public CompletableFuture<ToDo> loadToDo() {
+        return CompletableFuture.supplyAsync(() -> {
             String resultJson = httpService.doGet(TODO_URL);
-            return mapper.readValue(resultJson, ToDo[].class)[0];
-        } catch (IOException e) {
-            return null;
-        }
+            return mapper.mapToObject(resultJson, ToDo[].class);
+        });
     }
 
-    public Photo loadPhoto() {
-        try {
+    public CompletableFuture<Photo> loadPhoto() {
+        return CompletableFuture.supplyAsync(() -> {
             String resultJson = httpService.doGet(PHOTO_URL);
-            return mapper.readValue(resultJson, Photo[].class)[0];
-        } catch (IOException e) {
-            return null;
-        }
+            return mapper.mapToObject(resultJson, Photo[].class);
+        });
     }
 }
