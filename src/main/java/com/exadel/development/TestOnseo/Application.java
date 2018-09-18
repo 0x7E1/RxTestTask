@@ -1,27 +1,19 @@
 package com.exadel.development.TestOnseo;
 
 import com.exadel.development.TestOnseo.domain.ResultObject;
-import com.exadel.development.TestOnseo.domain.dto.*;
-import com.exadel.development.TestOnseo.service.DataLoader;
-import com.exadel.development.TestOnseo.service.impl.DataLoaderImpl;
+import com.exadel.development.TestOnseo.facade.ApplicationRunnerFacade;
+import com.google.common.base.Stopwatch;
+
+import java.util.concurrent.TimeUnit;
 
 public class Application {
     
     public static void main(String[] args) {
-        run();
-    }
+        Stopwatch stopwatch = Stopwatch.createStarted();
 
-    private static void run() {
-        DataLoader loader = new DataLoaderImpl();
+        ResultObject resultObject = new ApplicationRunnerFacade().getResult();
 
-        Post post = loader.loadPost();
-        Comment comment = loader.loadComment(post.getId());
-        Album album = loader.loadAlbum();
-        ToDo toDo = loader.loadToDo();
-        Photo photo = loader.loadPhoto();
-
-        ResultObject resultObject = new ResultObject(post, comment, album, toDo, photo);
-
-        System.out.println(resultObject);
+        stopwatch.stop();
+        System.out.println("Time elapsed: " + stopwatch.elapsed(TimeUnit.MILLISECONDS) + " ms");
     }
 }
