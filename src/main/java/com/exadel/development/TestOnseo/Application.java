@@ -1,6 +1,6 @@
 package com.exadel.development.TestOnseo;
 
-import com.exadel.development.TestOnseo.domain.ResultObject;
+import com.exadel.development.TestOnseo.domain.dto.ResultObject;
 import com.exadel.development.TestOnseo.facade.ApplicationRunnerFacade;
 import com.google.common.base.Stopwatch;
 

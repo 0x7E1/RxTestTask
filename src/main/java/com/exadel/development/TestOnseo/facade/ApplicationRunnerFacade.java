@@ -1,6 +1,5 @@
 package com.exadel.development.TestOnseo.facade;
 
-import com.exadel.development.TestOnseo.domain.ResultObject;
 import com.exadel.development.TestOnseo.domain.dto.*;
 import com.exadel.development.TestOnseo.service.DataLoader;
 

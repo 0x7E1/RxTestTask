@@ -7,9 +7,11 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Post {
-    private Long userId;
+public class ResultObject {
     private Long id;
-    private String title;
-    private String body;
+    private Post post;
+    private Comment comment;
+    private Album album;
+    private ToDo toDo;
+    private Photo photo;
 }
