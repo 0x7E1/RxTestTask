@@ -12,12 +12,12 @@ import io.reactivex.Observable;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
 @Slf4j
 public class ApplicationRunnerFacade {
 
     private final DataLoader dataLoader;
+
 
     public ApplicationRunnerFacade() {
         this.dataLoader = new TestDataLoaderImpl();
@@ -35,7 +35,7 @@ public class ApplicationRunnerFacade {
 
     public CompletableFuture<ResultObject> getResultAsync() {
         //TODO implement CompletableFuture solution
-        return CompletableFuture.completedFuture(getResult());
+        return CompletableFuture.supplyAsync(this::getResult);
 
 //        CompletableFuture<Post> postFuture = dataLoader.loadPost();
 //        Post post = postFuture.get();
@@ -55,6 +55,6 @@ public class ApplicationRunnerFacade {
 
     public Observable<ResultObject> getResultObservable() {
         //TODO implement Observable solution
-        return Observable.just(getResult());
+        return Observable.fromCallable(this::getResult);
     }
 }

@@ -15,9 +15,9 @@ public class TestDataLoaderImpl implements DataLoader {
     private final static int ALBUM_DELAY = DEFAULT_DELAY;
     private final static int COMMENT_DELAY = DEFAULT_DELAY;
     private final static int PHOTO_DELAY = DEFAULT_DELAY;
-    private final static int POST_DELAY = DEFAULT_DELAY;
+    private final static int POST_DELAY = DEFAULT_DELAY/2;
     private final static int TODO_DELAY = DEFAULT_DELAY;
-    private final static int RESULT_DELAY = DEFAULT_DELAY;
+    private final static int RESULT_DELAY = 0;
 
     private final static Long userId = 12L;
 
