@@ -1,11 +1,11 @@
-package com.onseo.TestTask.domain.dto;
+package com.onseo.testtask.domain.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
+import lombok.ToString;
 
-@Data
-@NoArgsConstructor
+@Getter
+@ToString
 @AllArgsConstructor
 public class Post {
     private Long userId;

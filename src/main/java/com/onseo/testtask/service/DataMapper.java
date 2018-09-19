@@ -1,7 +1,7 @@
-package com.onseo.TestTask.service;
+package com.onseo.testtask.service;
 
-import com.onseo.TestTask.service.exceptions.DataMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.onseo.testtask.service.exceptions.DataMappingException;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
