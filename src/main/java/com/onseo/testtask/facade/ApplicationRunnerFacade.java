@@ -12,6 +12,7 @@ import io.reactivex.Observable;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 @Slf4j
 public class ApplicationRunnerFacade {
@@ -33,24 +34,25 @@ public class ApplicationRunnerFacade {
         return dataLoader.createResultObject(userId, post, comment, album, toDo, photo);
     }
 
-    public CompletableFuture<ResultObject> getResultAsync() {
-        //TODO implement CompletableFuture solution
-        return CompletableFuture.supplyAsync(this::getResult);
+    public CompletableFuture<ResultObject> getResultAsync() throws ExecutionException, InterruptedException {
+        CompletableFuture<Long> userIdFuture1 = CompletableFuture.supplyAsync(() -> dataLoader.loadPost().getUserId());
+        CompletableFuture<Long> userIdFuture2 = CompletableFuture.supplyAsync(() -> dataLoader.loadAlbum().getUserId());
+        CompletableFuture<Object> anyOfFuture = CompletableFuture.anyOf(userIdFuture1, userIdFuture2);
+        Long userId = (Long) anyOfFuture.get(); //race condition. getting userId from Post or Album
 
-//        CompletableFuture<Post> postFuture = dataLoader.loadPost();
-//        Post post = postFuture.get();
-//        CompletableFuture<Comment> commentFuture = dataLoader.loadComment(post.getId());
-//        CompletableFuture<Object> albumFuture = dataLoader.loadAlbum();
-//        CompletableFuture<ToDo> toDoFuture = dataLoader.loadToDo();
-//        CompletableFuture<Photo> photoFuture = dataLoader.loadPhoto();
-//
-//        Comment comment = commentFuture.get();
-//        Album album = (Album) albumFuture.get();
-//        ToDo toDo = toDoFuture.get();
-//        Photo photo = photoFuture.get();
-//
-//        log.info("All objects are loaded!");
-//        return new ResultObject(1L, post, comment, album, toDo, photo);
+        CompletableFuture<Post> postFuture = CompletableFuture.supplyAsync(dataLoader::loadPost);
+        CompletableFuture<Album> albumFuture = CompletableFuture.supplyAsync(dataLoader::loadAlbum);
+        CompletableFuture<ToDo> toDoFuture = CompletableFuture.supplyAsync(() -> dataLoader.loadToDo(userId));
+        CompletableFuture<Comment> commentFuture = postFuture.thenApply(result -> dataLoader.loadComment(result.getId())); //execute postFuture, then get post's ID and pass it as parameter to loadComment()
+        CompletableFuture<Photo> photoFuture = albumFuture.thenApply(result -> dataLoader.loadPhoto(result.getId())); //the same for album's ID and loadPhoto()
+
+        Post post = postFuture.get();
+        Album album = albumFuture.get();
+        ToDo toDo = toDoFuture.get();
+        Comment comment = commentFuture.get();
+        Photo photo = photoFuture.get();
+
+        return CompletableFuture.supplyAsync(() -> dataLoader.createResultObject(userId, post, comment, album, toDo, photo));
     }
 
     public Observable<ResultObject> getResultObservable() {
