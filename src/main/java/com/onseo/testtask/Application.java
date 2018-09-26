@@ -15,25 +15,28 @@ public class Application {
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
         log.info("-------------------------------------------------------------------------");
-        Stopwatch stopwatch = Stopwatch.createStarted();
+        Stopwatch syncStopwatch = Stopwatch.createStarted();
         ApplicationRunnerFacade facade = new ApplicationRunnerFacade();
         ResultObject resultObjectFromSync = facade.getResult();
-        stopwatch.stop();
-        log.info("SYNC: Time elapsed: " + stopwatch.elapsed(TimeUnit.MILLISECONDS) + " ms");
+        syncStopwatch.stop();
+        log.info("SYNC: Time elapsed: " + syncStopwatch.elapsed(TimeUnit.MILLISECONDS) + " ms");
         log.info("-------------------------------------------------------------------------");
+        Stopwatch asyncStopwatch = Stopwatch.createStarted();
         CompletableFuture<ResultObject> resultObjectFuture = facade.getResultAsync();
-        stopwatch = Stopwatch.createStarted();
         ResultObject resultObjectFromAsync = resultObjectFuture.get();
-        stopwatch.stop();
-        log.info("ASYNC: Time elapsed: " + stopwatch.elapsed(TimeUnit.MILLISECONDS) + " ms");
+        asyncStopwatch.stop();
+        log.info("ASYNC: Time elapsed: " + asyncStopwatch.elapsed(TimeUnit.MILLISECONDS) + " ms");
         log.info("-------------------------------------------------------------------------");
+        Stopwatch observableStopwatch = Stopwatch.createStarted();
         Observable<ResultObject> resultObjectObservable = facade.getResultObservable();
-        stopwatch = Stopwatch.createStarted();
         ResultObject resultObjectFromObservable = resultObjectObservable.blockingFirst();
-        stopwatch.stop();
-        log.info("OBSERVABLE: Time elapsed: " + stopwatch.elapsed(TimeUnit.MILLISECONDS) + " ms");
+        observableStopwatch.stop();
+        log.info("OBSERVABLE: Time elapsed: " + observableStopwatch.elapsed(TimeUnit.MILLISECONDS) + " ms");
         log.info("-------------------------------------------------------------------------");
 
-        //TODO not important but we can compare resultObjectFromSync, resultObjectFromAsync, resultObjectFromObservable
+        System.out.println();
+        log.info("SYNC time: " + syncStopwatch.elapsed(TimeUnit.MILLISECONDS) + " ms");
+        log.info("ASYNC time: " + asyncStopwatch.elapsed(TimeUnit.MILLISECONDS) + " ms");
+        log.info("OBSERVABLE time: " + observableStopwatch.elapsed(TimeUnit.MILLISECONDS) + " ms");
     }
 }
