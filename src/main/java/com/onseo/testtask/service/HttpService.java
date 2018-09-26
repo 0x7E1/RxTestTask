@@ -1,6 +1,6 @@
-package com.onseo.TestTask.service;
+package com.onseo.testtask.service;
 
-import com.onseo.TestTask.service.exceptions.DataLoadingException;
+import com.onseo.testtask.service.exceptions.DataLoadingException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpResponse;
